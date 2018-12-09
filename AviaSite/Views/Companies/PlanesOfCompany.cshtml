@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AviaSite.Plane>
+
+@{
+    ViewBag.Title = "PlanesOfCompany";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>PlanesOfCompany</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "Planes")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.InFlight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seats)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AvailableSeats)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company.CompanyName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.InFlight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Seats)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvailableSeats)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company.CompanyName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", "Planes", new { id=item.PlaneNum }, null) |
+            @Html.ActionLink("Details", "Details", "Planes", new { id=item.PlaneNum }, null) |
+            @Html.ActionLink("Delete", "Delete", "Planes", new { id=item.PlaneNum }, null)
+        </td>
+    </tr>
+}
+
+</table>

@@ -155,6 +155,7 @@
     <Compile Include="Company.cs">
       <DependentUpon>AviaEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlanesController.cs" />
     <Compile Include="Flight.cs">
@@ -228,6 +229,12 @@
     <Content Include="Views\Planes\Edit.cshtml" />
     <Content Include="Views\Planes\Index.cshtml" />
     <Content Include="Views\Home\Create.cshtml" />
+    <Content Include="Views\Companies\Create.cshtml" />
+    <Content Include="Views\Companies\Delete.cshtml" />
+    <Content Include="Views\Companies\Details.cshtml" />
+    <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Companies\PlanesOfCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
