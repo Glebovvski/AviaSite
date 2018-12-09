@@ -11,10 +11,12 @@ namespace AviaSite
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Airport
     {
         public int AirportID { get; set; }
+        [Display(Name ="Airport")]
         public string AirportName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }

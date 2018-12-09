@@ -1,0 +1,57 @@
+﻿@model AviaSite.Plane
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Plane</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PlaneNum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PlaneNum)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InFlight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InFlight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seats)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seats)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailableSeats)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvailableSeats)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Company.CompanyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company.CompanyName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PlaneNum }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

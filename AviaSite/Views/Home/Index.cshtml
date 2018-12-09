@@ -39,7 +39,7 @@
             @Html.DisplayFor(modelItem => item.To)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Plane1.PlaneNum)
+            @Html.ActionLink(item.Plane1.PlaneNum.ToString(), "Details", "Planes", new { id = item.Plane1.PlaneNum}, null)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.flight1 }) |

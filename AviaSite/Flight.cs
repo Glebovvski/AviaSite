@@ -11,9 +11,11 @@ namespace AviaSite
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Flight
     {
+        [Display(Name ="Flught")]
         public int flight1 { get; set; }
         public System.DateTime Date { get; set; }
         public string From { get; set; }
