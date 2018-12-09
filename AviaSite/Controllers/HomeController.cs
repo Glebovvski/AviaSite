@@ -8,9 +8,12 @@ namespace AviaSite.Controllers
 {
     public class HomeController : Controller
     {
+        AviaEntities db = new AviaEntities();
+
         public ActionResult Index()
         {
-            return View();
+            var schedule = db.Flights.ToList();
+            return View(schedule);
         }
 
         public ActionResult About()
