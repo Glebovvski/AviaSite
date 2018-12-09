@@ -75,5 +75,28 @@ namespace AviaSite.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult GetFlight(string From, string To, DateTime Date)
+        {
+            if (From == string.Empty && To == string.Empty)
+            {
+                TempData["NoResult"] = "There is no flight with this parameters. You can create new flight";
+                return RedirectToAction("Index");
+            }
+            else if (From == string.Empty)
+            {
+                var result1 = db.Flights.Where(x => x.To.Contains(To)).ToList();
+                return View("Index", result1);
+            }
+            else if (To == string.Empty)
+            {
+                var result2 = db.Flights.Where(x => x.From.Contains(From)).ToList();
+                return View("Index", result2);
+            }
+            if (Date == null)
+                Date = DateTime.Today;
+            var results = db.Flights.Where(x => x.From.Contains(From) && x.To.Contains(To)).OrderBy(x=>x.Date).ToList();
+            return View("Index", results);
+        }
     }
 }

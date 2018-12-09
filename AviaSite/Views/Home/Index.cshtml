@@ -6,10 +6,28 @@
 }
 
 <h2>Index</h2>
-
+@{
+    string from = string.Empty, to = string.Empty;
+    DateTime date = DateTime.Today;
+}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("GetFlight", "Home"))
+{
+    @Html.Label("From: ")
+    @Html.TextBox("From")
+    @Html.Label("To: ")
+    @Html.TextBox("To")
+    @Html.Label("Date: ")
+    @Html.TextBox("Date", DateTime.Today)
+
+    <input type="submit" value="Check your value!">
+}
+    <p>
+        @TempData["NoResult"]
+    </p>
+<p></p>
 <table class="table">
     <tr>
         <th>
@@ -27,26 +45,27 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.From)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.To)
-        </td>
-        <td>
-            @Html.ActionLink(item.Plane1.PlaneNum.ToString(), "Details", "Planes", new { id = item.Plane1.PlaneNum}, null)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.flight1 }) |
-            @Html.ActionLink("Details", "Details", new { id=item.flight1 }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.flight1 })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.From)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.To)
+            </td>
+            <td>
+                @Html.ActionLink(item.Plane1.PlaneNum.ToString(), "Details", "Planes", new { id = item.Plane1.PlaneNum }, null)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.flight1 }) |
+                @Html.ActionLink("Details", "Details", new { id = item.flight1 }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.flight1 })
+            </td>
+        </tr>
+    }
 
 </table>
