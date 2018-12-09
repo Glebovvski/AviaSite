@@ -57,5 +57,23 @@ namespace AviaSite.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            SelectList planes = new SelectList(db.Planes.Where(x => x.InFlight == false).Select(x => x.PlaneNum));
+
+            List<SelectListItem> planesList = new List<SelectListItem>(planes);
+            ViewBag.Planes = planesList;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Flight flight)
+        {
+            db.Entry(flight).State = System.Data.Entity.EntityState.Added;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

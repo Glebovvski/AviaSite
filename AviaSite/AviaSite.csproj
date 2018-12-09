@@ -227,6 +227,7 @@
     <Content Include="Views\Planes\Details.cshtml" />
     <Content Include="Views\Planes\Edit.cshtml" />
     <Content Include="Views\Planes\Index.cshtml" />
+    <Content Include="Views\Home\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
