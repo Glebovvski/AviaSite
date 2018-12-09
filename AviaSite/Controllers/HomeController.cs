@@ -43,5 +43,11 @@ namespace AviaSite.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult Details(int id)
+        {
+            var detail = db.Flights.Where(x => x.flight1 == id).First();
+            return View(detail);
+        }
     }
 }
