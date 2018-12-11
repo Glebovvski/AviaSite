@@ -11,8 +11,7 @@ namespace AviaSite
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Plane
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,12 +20,9 @@ namespace AviaSite
             this.Flights = new HashSet<Flight>();
         }
     
-        [Display(Name ="Plane")]
         public int PlaneNum { get; set; }
-        [Display(Name ="In flight")]
         public bool InFlight { get; set; }
         public int Seats { get; set; }
-        [Display(Name ="Available Seats")]
         public int AvailableSeats { get; set; }
         public int CompanyID { get; set; }
     

@@ -11,6 +11,8 @@
         <EntityTypeShape EntityType="AviaModel.Plane" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="AviaModel.FK_Planes_Companies" ManuallyRouted="false" />
         <AssociationConnector Association="AviaModel.FK_Flights_Planes" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AviaModel.Ticket" Width="1.5" PointX="8.25" PointY="1.5" />
+        <AssociationConnector Association="AviaModel.FK_Tickets_Flights" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

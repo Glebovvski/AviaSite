@@ -29,5 +29,6 @@ namespace AviaSite
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Flight> Flights { get; set; }
         public virtual DbSet<Plane> Planes { get; set; }
+        public virtual DbSet<Ticket> Tickets { get; set; }
     }
 }

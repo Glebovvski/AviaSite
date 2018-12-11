@@ -98,5 +98,16 @@ namespace AviaSite.Controllers
             var results = db.Flights.Where(x => x.From.Contains(From) && x.To.Contains(To)).OrderBy(x=>x.Date).ToList();
             return View("Index", results);
         }
+
+        public ActionResult TodayFlights()
+        {
+            var res = db.Flights.Where(x => x.Date == DateTime.Today).ToList();
+            if (res.Count==0)
+            {
+                TempData["NoResult"] = "There is no flight with this parameters. You can create new flight";
+                return RedirectToAction("Index");
+            }
+            return View("Index", res);
+        }
     }
 }

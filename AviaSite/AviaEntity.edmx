@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AviaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AviaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Airport">
           <Key>
             <PropertyRef Name="AirportID" />
@@ -41,6 +41,14 @@
           <Property Name="AvailableSeats" Type="int" Nullable="false" />
           <Property Name="CompanyID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="TicketId" />
+          </Key>
+          <Property Name="TicketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FlightId" Type="int" Nullable="false" />
+          <Property Name="SeatNumber" Type="nvarchar" MaxLength="5" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Flights_Planes">
           <End Role="Planes" Type="Self.Planes" Multiplicity="1" />
           <End Role="Flights" Type="Self.Flights" Multiplicity="*" />
@@ -65,11 +73,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tickets_Flights">
+          <End Role="Flights" Type="Self.Flights" Multiplicity="1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flights">
+              <PropertyRef Name="flight" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="FlightId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="AviaModelStoreContainer">
           <EntitySet Name="Airport" EntityType="Self.Airport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Companies" EntityType="Self.Companies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Flights" EntityType="Self.Flights" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Planes" EntityType="Self.Planes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Flights_Planes" Association="Self.FK_Flights_Planes">
             <End Role="Planes" EntitySet="Planes" />
             <End Role="Flights" EntitySet="Flights" />
@@ -78,9 +99,12 @@
             <End Role="Companies" EntitySet="Companies" />
             <End Role="Planes" EntitySet="Planes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Tickets_Flights" Association="Self.FK_Tickets_Flights">
+            <End Role="Flights" EntitySet="Flights" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AviaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -111,6 +135,7 @@
           <Property Name="To" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Plane" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Plane1" Relationship="Self.FK_Flights_Planes" FromRole="Flights" ToRole="Planes" />
+          <NavigationProperty Name="Tickets" Relationship="AviaModel.FK_Tickets_Flights" FromRole="Flight" ToRole="Ticket" />
         </EntityType>
         <EntityType Name="Plane">
           <Key>
@@ -161,7 +186,33 @@
             <End Role="Planes" EntitySet="Planes" />
             <End Role="Flights" EntitySet="Flights" />
           </AssociationSet>
+          <EntitySet Name="Tickets" EntityType="AviaModel.Ticket" />
+          <AssociationSet Name="FK_Tickets_Flights" Association="AviaModel.FK_Tickets_Flights">
+            <End Role="Flight" EntitySet="Flights" />
+            <End Role="Ticket" EntitySet="Tickets" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="TicketId" />
+          </Key>
+          <Property Name="TicketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FlightId" Type="Int32" Nullable="false" />
+          <Property Name="SeatNumber" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Flight" Relationship="AviaModel.FK_Tickets_Flights" FromRole="Ticket" ToRole="Flight" />
+        </EntityType>
+        <Association Name="FK_Tickets_Flights">
+          <End Type="AviaModel.Flight" Role="Flight" Multiplicity="1" />
+          <End Type="AviaModel.Ticket" Role="Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flight">
+              <PropertyRef Name="flight1" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="FlightId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -205,6 +256,15 @@
                 <ScalarProperty Name="Seats" ColumnName="Seats" />
                 <ScalarProperty Name="AvailableSeats" ColumnName="AvailableSeats" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="AviaModel.Ticket">
+              <MappingFragment StoreEntitySet="Tickets">
+                <ScalarProperty Name="SeatNumber" ColumnName="SeatNumber" />
+                <ScalarProperty Name="FlightId" ColumnName="FlightId" />
+                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

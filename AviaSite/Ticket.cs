@@ -12,11 +12,12 @@ namespace AviaSite
     using System;
     using System.Collections.Generic;
     
-    public partial class Airport
+    public partial class Ticket
     {
-        public int AirportID { get; set; }
-        public string AirportName { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
+        public int TicketId { get; set; }
+        public int FlightId { get; set; }
+        public string SeatNumber { get; set; }
+    
+        public virtual Flight Flight { get; set; }
     }
 }

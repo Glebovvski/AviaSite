@@ -22,9 +22,14 @@
     @Html.Label("Date: ")
     @Html.TextBox("Date", DateTime.Today)
 
-    <input type="submit" value="Check your value!">
+    <input type="submit" value="Get Flight!">
 }
-    <p>
+
+@using(Html.BeginForm("TodayFlights", "Home"))
+{
+    <input type="submit" value="Today Flights" />
+}
+    <p style="color: red">
         @TempData["NoResult"]
     </p>
 <p></p>

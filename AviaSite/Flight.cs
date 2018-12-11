@@ -11,11 +11,15 @@ namespace AviaSite
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Flight
     {
-        [Display(Name ="Flught")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Flight()
+        {
+            this.Tickets = new HashSet<Ticket>();
+        }
+    
         public int flight1 { get; set; }
         public System.DateTime Date { get; set; }
         public string From { get; set; }
@@ -23,5 +27,7 @@ namespace AviaSite
         public int Plane { get; set; }
     
         public virtual Plane Plane1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }
