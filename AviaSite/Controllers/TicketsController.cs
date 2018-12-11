@@ -118,6 +118,7 @@ namespace AviaSite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.FlightId = new SelectList(db.Flights, "flight1", "FlightDesc");
             Ticket ticket = db.Tickets.Find(id);
             db.Tickets.Remove(ticket);
             db.SaveChanges();
@@ -143,6 +144,12 @@ namespace AviaSite.Controllers
             if (res.Count == 0)
                 TempData["NoTickets"] = "There are no tickets bought for this flight";
             return View("Index", res);
+        }
+
+        public ActionResult GetReport(DateTime start, DateTime end)
+        {
+            ViewBag.FlightId = new SelectList(db.Flights, "flight1", "FlightDesc");
+            return View("index", db.Tickets.Where(x => x.Flight.Date.Month >= start.Month && x.Flight.Date.Month <= end.Month).ToList());
         }
     }
 }

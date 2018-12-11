@@ -18,6 +18,16 @@
     <input type="submit" value="Get Flight" />
 }
 
+    <p>
+        @using (Html.BeginForm("GetReport", "Tickets"))
+        {
+            @Html.Label("Start date: ")
+            @Html.TextBox("start", DateTime.Today)
+            @Html.Label("End date: ")
+            @Html.TextBox("end", DateTime.Today)
+            <input type="submit" value="Get Report" />
+        }
+    </p>
 <p style="color:red">
     @TempData["NoTickets"]
 </p>
