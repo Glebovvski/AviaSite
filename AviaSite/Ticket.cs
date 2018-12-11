@@ -11,11 +11,14 @@ namespace AviaSite
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Ticket
     {
         public int TicketId { get; set; }
+        [Display(Name ="Flight")]
         public int FlightId { get; set; }
+        [Display(Name ="Seat")]
         public string SeatNumber { get; set; }
     
         public virtual Flight Flight { get; set; }

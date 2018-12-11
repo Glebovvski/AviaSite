@@ -39,7 +39,8 @@ namespace AviaSite.Controllers
         // GET: Tickets/Create
         public ActionResult Create()
         {
-            ViewBag.FlightId = new SelectList(db.Flights, "flight1", "From");
+            ViewBag.FlightId = new SelectList(db.Flights, "flight1", "FlightDesc");
+            //ViewBag.FlightTo = new SelectList(db.Flights, "flight1", "To");
             return View();
         }
 

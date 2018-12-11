@@ -18,6 +18,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Flight.From)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Flight.To)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Flight.Plane)
+        </th>
         <th></th>
     </tr>
 
@@ -30,9 +36,15 @@
             @Html.DisplayFor(modelItem => item.Flight.From)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TicketId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TicketId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TicketId })
+            @Html.DisplayFor(modelItem => item.Flight.To)
+        </td>
+        <td>
+            @Html.ActionLink(item.Flight.Plane.ToString(), "Details", "Planes", new { id = item.Flight.Plane }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.TicketId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.TicketId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TicketId })
         </td>
     </tr>
 }

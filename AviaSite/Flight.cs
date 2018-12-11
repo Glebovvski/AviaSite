@@ -27,6 +27,9 @@ namespace AviaSite
         public int Plane { get; set; }
     
         public virtual Plane Plane1 { get; set; }
+
+        public string FlightDesc { get { return From + " - " + To; } }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ticket> Tickets { get; set; }
     }
