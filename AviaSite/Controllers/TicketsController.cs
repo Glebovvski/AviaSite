@@ -17,6 +17,7 @@ namespace AviaSite.Controllers
         // GET: Tickets
         public ActionResult Index()
         {
+            ViewBag.FlightId = new SelectList(db.Flights, "flight1", "FlightDesc");
             var tickets = db.Tickets.Include(t => t.Flight);
             return View(tickets.ToList());
         }
@@ -40,7 +41,6 @@ namespace AviaSite.Controllers
         public ActionResult Create()
         {
             ViewBag.FlightId = new SelectList(db.Flights, "flight1", "FlightDesc");
-            //ViewBag.FlightTo = new SelectList(db.Flights, "flight1", "To");
             return View();
         }
 
@@ -51,14 +51,17 @@ namespace AviaSite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "TicketId,FlightId,SeatNumber")] Ticket ticket)
         {
-            if (ModelState.IsValid)
+            if (!db.Tickets.Any(x => x.SeatNumber == ticket.SeatNumber && x.FlightId == ticket.FlightId))
             {
-                db.Tickets.Add(ticket);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Tickets.Add(ticket);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
-            ViewBag.FlightId = new SelectList(db.Flights, "flight1", "From", ticket.FlightId);
+            else TempData["AlreadyExist"] = "This seat is already booked!";
+            ViewBag.FlightId = new SelectList(db.Flights, "flight1", "FlightDesc", ticket.FlightId);
             return View(ticket);
         }
 
@@ -128,6 +131,18 @@ namespace AviaSite.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult GetFlight(int flightId, DateTime? date)
+        {
+            var res = new List<Ticket>();
+            ViewBag.FlightId = new SelectList(db.Flights, "flight1", "FlightDesc");
+            if (date == null)
+                res = db.Tickets.Where(x => x.FlightId == flightId).ToList();
+            else res = db.Tickets.Where(x => x.FlightId == flightId && x.Flight.Date==date).ToList();
+            if (res.Count == 0)
+                TempData["NoTickets"] = "There are no tickets bought for this flight";
+            return View("Index", res);
         }
     }
 }

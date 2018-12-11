@@ -10,8 +10,23 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm("GetFlight", "Tickets"))
+{
+    @Html.DropDownList("FlightId", String.Empty)
+    @Html.TextBox("Date", DateTime.Today)
+    <input type="submit" value="Get Flight" />
+}
+
+<p style="color:red">
+    @TempData["NoTickets"]
+</p>
+
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Flight.Date)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.SeatNumber)
         </th>
@@ -27,26 +42,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SeatNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Flight.From)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Flight.To)
-        </td>
-        <td>
-            @Html.ActionLink(item.Flight.Plane.ToString(), "Details", "Planes", new { id = item.Flight.Plane }, null)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.TicketId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.TicketId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.TicketId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flight.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flight.From)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flight.To)
+            </td>
+            <td>
+                @Html.ActionLink(item.Flight.Plane.ToString(), "Details", "Planes", new { id = item.Flight.Plane }, null)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TicketId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TicketId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TicketId })
+            </td>
+        </tr>
+    }
 
 </table>
