@@ -25,7 +25,7 @@ namespace AviaSite
         public string From { get; set; }
         public string To { get; set; }
         public int Plane { get; set; }
-    
+        
         public virtual Plane Plane1 { get; set; }
 
         public string FlightDesc { get { return From + " - " + To; } }

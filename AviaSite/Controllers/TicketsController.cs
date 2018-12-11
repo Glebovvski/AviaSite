@@ -77,7 +77,7 @@ namespace AviaSite.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.FlightId = new SelectList(db.Flights, "flight1", "From", ticket.FlightId);
+            ViewBag.FlightId = new SelectList(db.Flights, "flight1", "FlightDesc");
             return View(ticket);
         }
 
@@ -94,7 +94,7 @@ namespace AviaSite.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.FlightId = new SelectList(db.Flights, "flight1", "From", ticket.FlightId);
+            ViewBag.FlightId = new SelectList(db.Flights, "flight1", "FlightDesc");
             return View(ticket);
         }
 
